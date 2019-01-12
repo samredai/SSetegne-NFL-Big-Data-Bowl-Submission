@@ -128,7 +128,10 @@ def getPlayMovementCSS(playMovements):
 @app.route("/")
 def games():
         try:
-                df = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/games.csv')
+                try:
+                    df = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/games.csv')
+                except:
+                    df = pd.read_csv(r'Data/games.csv')
                 games = df.to_dict('records')
                 html = '''
                 <!DOCTYPE html>
@@ -150,7 +153,10 @@ def games():
 
 @app.route("/games/<req_gameId>")
 def plays(req_gameId):
-        df = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/plays.csv')
+        try:
+            df = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/plays.csv')
+        except:
+            df = pd.read_csv(r'Data/plays.csv')
         game = df[(df['gameId'] == int(req_gameId))]
         playList = []
         for row in game.itertuples():
@@ -174,7 +180,10 @@ def plays(req_gameId):
 @app.route("/games/<req_gameId>/<req_playId>")
 def gameAnimation(req_gameId, req_playId):
         try:
-                df = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/tracking_gameId_' + str(req_gameId) + '.csv')
+                try:
+                    df = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/tracking_gameId_' + str(req_gameId) + '.csv')
+                except:
+                    df = pd.read_csv(r'Data/tracking_gameId_' + str(req_gameId) + '.csv')
                 play44 = getPlayMovement(getPlay(df, req_gameId, req_playId)) #touchdown
                 cssMotion = getPlayMovementCSS(play44)
                 css = ''
@@ -255,11 +264,11 @@ def gameAnimation(req_gameId, req_playId):
                 <title>Football Animation</title>
                 {fullcss}
                 </head>
-		<body>
-		<div class="controls">
-	                <h3 class="springy-text" id="springy">Animation Controls</h3>
-	                <button onclick="togglePlayState('Paused');">Pause</button>
-	                <button onclick="togglePlayState('Running');">Play</button>
+        <body>
+        <div class="controls">
+                    <h3 class="springy-text" id="springy">Animation Controls</h3>
+                    <button onclick="togglePlayState('Paused');">Pause</button>
+                    <button onclick="togglePlayState('Running');">Play</button>
                 </div>
                         <div class="field">
                                 <img src="/static/images/football.png" alt="football" id="football" />
@@ -286,7 +295,7 @@ def gameAnimation(req_gameId, req_playId):
                                 <p alt="player10-away" id="player10-away" class="player-away" title="{player10away}" />
                                 <p alt="player11-away" id="player11-away" class="player-away" title="{player11away}" />
                         </div>
-		<div class="controls">
+        <div class="controls">
                 <h3 class="springy-text" id="springy">Animation Controls</h3>
                 <button onclick="togglePlayState('Paused');">Pause</button>
                 <button onclick="togglePlayState('Running');">Play</button>
