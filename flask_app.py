@@ -216,17 +216,14 @@ def plays(req_gameId):
 @app.route("/games/<req_gameId>/<req_playId>")
 def gameAnimation(req_gameId, req_playId):
         try:
-<<<<<<< HEAD
                 try:
                     df = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/tracking_gameId_' + str(req_gameId) + '.csv')
+                    df_players = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/players.csv')
                 except:
                     df = pd.read_csv(r'Data/tracking_gameId_' + str(req_gameId) + '.csv')
-=======
-                df = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/tracking_gameId_' + str(req_gameId) + '.csv')
-                df_players = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/players.csv')
+                    df_players = pd.read_csv(r'Data/players.csv')
                 df_players = df_players[['nflId','PositionAbbr']]
                 df = df.join(df_players.set_index('nflId'), on='nflId')
->>>>>>> Limiting 10yd catch circles to WR, TE, RB, and FB
                 play44 = getPlayMovement(getPlay(df, req_gameId, req_playId)) #touchdown
                 cssMotion = getPlayMovementCSS(play44)
                 css = ''
