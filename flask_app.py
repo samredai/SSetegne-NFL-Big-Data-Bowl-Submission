@@ -23,10 +23,10 @@ def getPlayMovement(playdf):
     homePlayerNames = home['displayName'].unique().tolist()
     for player in awayPlayerNames:
         playerMoves = away[(away['displayName'] == player)]
-        awayPlayerTracking[player] = {'x' : playerMoves['x'].tolist(), 'y' : playerMoves['y'].tolist()}
+        awayPlayerTracking[player] = {'x' : playerMoves['x'].tolist(), 'y' : playerMoves['y'].tolist(), 'position' : playerMoves['PositionAbbr'].tolist()}
     for player in homePlayerNames:
         playerMoves = home[(home['displayName'] == player)]
-        homePlayerTracking[player] = {'x' : playerMoves['x'].tolist(), 'y' : playerMoves['y'].tolist()}
+        homePlayerTracking[player] = {'x' : playerMoves['x'].tolist(), 'y' : playerMoves['y'].tolist(), 'position' : playerMoves['PositionAbbr'].tolist()}
     numframes = playdf['frame.id'].max()
     playMovement = { 'players' : { 'away' : awayPlayerTracking, 'home' : homePlayerTracking, 'awayNames' : awayPlayerNames, 'homeNames' : homePlayerNames }, 'ball' : ballTracking,'numberOfFrames' : numframes }
     return playMovement
@@ -71,17 +71,35 @@ def getPlayMovementCSS(playMovements):
         starty = playMovements['players']['away'][player]['y'][0]
         endx = playMovements['players']['away'][player]['x'][-1]
         endy = playMovements['players']['away'][player]['y'][-1]
-        css = '''
-        #player'''+str(awaycounter)+'''-away {
-        position: absolute;
-        top: '''+str(537-(starty*10))+'''px;
-        left: '''+str(startx*10)+'''px;
-        -webkit-animation: player'''+str(awaycounter)+'''-away-route 6s infinite linear;
-        -webkit-transform: translate(-50%, -50%);
-        animation-play-state: paused;
-        }
-
-        '''
+        position = playMovements['players']['away'][player]['position'][0]
+        if position in ('WR', 'TE', 'RB', 'FB'):
+           css = '''
+           #player'''+str(awaycounter)+'''-away {
+           position: absolute;
+           top: '''+str(537-(starty*10))+'''px;
+           left: '''+str(startx*10)+'''px;
+           -webkit-animation: player'''+str(awaycounter)+'''-away-route 6s infinite linear;
+           -webkit-transform: translate(-50%, -50%);
+           animation-play-state: paused;
+           border: 3px solid #333;
+           position: absolute;
+           height: 100px;
+           width: 100px;
+           -moz-border-radius:75px;
+           -webkit-border-radius: 75px;
+           }
+           '''
+        else:
+            css = '''
+            #player'''+str(awaycounter)+'''-away {
+            position: absolute;
+            top: '''+str(537-(starty*10))+'''px;
+            left: '''+str(startx*10)+'''px;
+            -webkit-animation: player'''+str(awaycounter)+'''-away-route 6s infinite linear;
+            -webkit-transform: translate(-50%, -50%);
+            animation-play-state: paused;
+            }
+            '''
         css += '@-webkit-keyframes player' + str(awaycounter) + '-away-route { \n'
         percentage = 0
         for counter, x in enumerate(xpoints):
@@ -101,17 +119,35 @@ def getPlayMovementCSS(playMovements):
         starty = playMovements['players']['home'][player]['y'][0]
         endx = playMovements['players']['home'][player]['x'][-1]
         endy = playMovements['players']['home'][player]['y'][-1]
-        css = '''
-        #player'''+str(homecounter)+'''-home {
-        position: absolute;
-        top: '''+str(537-(starty*10))+'''px;
-        left: '''+str(startx*10)+'''px;
-        -webkit-animation: player'''+str(homecounter)+'''-home-route 6s infinite linear;
-        -webkit-transform: translate(-50%, -50%);
-        animation-play-state: paused;
-        }
-
-        '''
+        position = playMovements['players']['home'][player]['position'][0]
+        if position in ('WR', 'TE', 'RB', 'FB'):
+            css = '''
+            #player'''+str(homecounter)+'''-home {
+            position: absolute;
+            top: '''+str(537-(starty*10))+'''px;
+            left: '''+str(startx*10)+'''px;
+            -webkit-animation: player'''+str(homecounter)+'''-home-route 6s infinite linear;
+            -webkit-transform: translate(-50%, -50%);
+            animation-play-state: paused;
+            border: 3px solid #333;
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            -moz-border-radius:75px;
+            -webkit-border-radius: 75px;
+            }
+            '''
+        else:
+             css = '''
+             #player'''+str(homecounter)+'''-home {
+             position: absolute;
+             top: '''+str(537-(starty*10))+'''px;
+             left: '''+str(startx*10)+'''px;
+             -webkit-animation: player'''+str(homecounter)+'''-home-route 6s infinite linear;
+             -webkit-transform: translate(-50%, -50%);
+             animation-play-state: paused;
+             }
+             '''
         css += '@-webkit-keyframes player' + str(homecounter) + '-home-route { \n'
         percentage = 0
         for counter, x in enumerate(xpoints):
@@ -182,8 +218,12 @@ def gameAnimation(req_gameId, req_playId):
         try:
                 try:
                     df = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/tracking_gameId_' + str(req_gameId) + '.csv')
+                    df_players = pd.read_csv(r'/home/ssetegne/nfl_animation_site/Data/players.csv')
                 except:
                     df = pd.read_csv(r'Data/tracking_gameId_' + str(req_gameId) + '.csv')
+                    df_players = pd.read_csv(r'Data/players.csv')
+                df_players = df_players[['nflId','PositionAbbr']]
+                df = df.join(df_players.set_index('nflId'), on='nflId')
                 play44 = getPlayMovement(getPlay(df, req_gameId, req_playId)) #touchdown
                 cssMotion = getPlayMovementCSS(play44)
                 css = ''
@@ -233,27 +273,21 @@ def gameAnimation(req_gameId, req_playId):
                 background: url(/static/images/home_player.png);
                 background-repeat: no-repeat;
                 background-size: 30px 30px;
-                background-position: center; 
-                border: 3px solid #333;
+                background-position: center;
                 position: absolute;
-                height: 150px;
-                width: 150px;
-                -moz-border-radius:75px;
-                -webkit-border-radius: 75px;
+                height: 40px;
+                width: 40px;
                 }
 
                 .player-away {
                 background: url(/static/images/away_player.png);
                 background-repeat: no-repeat;
                 background-size: 30px 30px;
-                background-position: center; 
-                border: 3px solid #333;
+                background-position: center;
                 position: absolute;
-                height: 150px;
-                width: 150px;
-                -moz-border-radius:75px;
-                -webkit-border-radius: 75px;
-                }  
+                height: 40px;
+                width: 40px;
+                }
                 '''
                 fullcss = '<style>' + stylecss + '\n' + css + '</style>'
                 page = '''
@@ -272,7 +306,7 @@ def gameAnimation(req_gameId, req_playId):
                 </div>
                         <div class="field">
                                 <img src="/static/images/football.png" alt="football" id="football" />
-                                <p alt="player1-home"  id="player1-home"  class="player-home" title="{player1home}" /> 
+                                <p alt="player1-home"  id="player1-home"  class="player-home catch-circle" title="{player1home}" /> 
                                 <p alt="player2-home"  id="player2-home"  class="player-home" title="{player2home}" />
                                 <p alt="player3-home"  id="player3-home"  class="player-home" title="{player3home}" />
                                 <p alt="player4-home"  id="player4-home"  class="player-home" title="{player4home}" />
