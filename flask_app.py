@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string
+from flask import Flask, render_template, render_template_string, request
 import pandas as pd
 import traceback
 
@@ -390,6 +390,12 @@ def gameAnimation(req_gameId, req_playId):
         except Exception as e:
                 return ("There was a problem: " + str(e) + "\nFull Traceback:\n " + str(traceback.format_exc()))
 
+@app.route("/csm/v1", methods=['GET', 'POST'])
+def catchSeparationModel():
+	if request.method == 'POST':
+		return "Here's the score"
+	else:
+		return render_template('catch_separation.html')
 
 if __name__ == "__main__":
-        app.run()
+        app.run(debug=True)
