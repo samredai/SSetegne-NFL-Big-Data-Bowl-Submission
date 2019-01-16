@@ -9,13 +9,13 @@
 					<fieldset>
 						<div class="pure-control-group">
 							<label for="rectar">Target's Route</label>
-							  <select name="rectar_xroute">
+							  <select name="rectar_xroute" required>
 								<option value="" disabled selected>Select a route distance</option>
 								<option value=1>Short</option>
 								<option value=2>Medium</option>
 								<option value=3>Deep</option>
 							  </select>
-							  <select name="rectar_yroute">
+							  <select name="rectar_yroute" required>
 								<option value="" disabled selected>Select a route type</option>
 								<option value=1>Stop</option>
 								<option value=2>Slant</option>
@@ -31,13 +31,13 @@
 
 						<div class="pure-control-group">
 							<label for="rec2">2nd Receiver's Route</label>
-							  <select name="rec2_xroute">
+							  <select name="rec2_xroute" required>
 								<option value="" disabled selected>Select a route distance</option>
 								<option value=1>Short</option>
 								<option value=2>Medium</option>
 								<option value=3>Deep</option>
 							  </select>
-							  <select name="rec2_yroute">
+							  <select name="rec2_yroute" required>
 								<option value="" disabled selected>Select a route type</option>
 								<option value=1>Stop</option>
 								<option value=2>Slant</option>
@@ -52,13 +52,13 @@
 
 						<div class="pure-control-group">
 							<label for="rec3">3rd Receiver's Route</label>
-							  <select name="rec3_xroute">
+							  <select name="rec3_xroute" required>
 								<option value="" disabled selected>Select a route distance</option>
 								<option value=1>Short</option>
 								<option value=2>Medium</option>
 								<option value=3>Deep</option>
 							  </select>
-							  <select name="rec3_yroute">
+							  <select name="rec3_yroute" required>
 								<option value="" disabled selected>Select a route type</option>
 								<option value=1>Stop</option>
 								<option value=2>Slant</option>
@@ -73,13 +73,13 @@
 						
 						<div class="pure-control-group">
 							<label for="rec4">4th Receiver's Route</label>
-							  <select name="rec4_xroute">
+							  <select name="rec4_xroute" required>
 								<option value="" disabled selected>Select a route distance</option>
 								<option value=1>Short</option>
 								<option value=2>Medium</option>
 								<option value=3>Deep</option>
 							  </select>
-							  <select name="rec4_yroute">
+							  <select name="rec4_yroute" required>
 								<option value="" disabled selected>Select a route type</option>
 								<option value=1>Stop</option>
 								<option value=2>Slant</option>
@@ -94,13 +94,13 @@
 
 						<div class="pure-control-group">
 							<label for="rec5">5th Receiver's Route</label>
-							  <select name="rec5_xroute">
+							  <select name="rec5_xroute" required>
 								<option value="" disabled selected>Select a route distance</option>
 								<option value=1>Short</option>
 								<option value=2>Medium</option>
 								<option value=3>Deep</option>
 							  </select>
-							  <select name="rec5_yroute">
+							  <select name="rec5_yroute" required>
 								<option value="" disabled selected>Select a route type</option>
 								<option value=1>Stop</option>
 								<option value=2>Slant</option>
@@ -115,7 +115,7 @@
 						
 						<div class="pure-control-group">
 							<label for="down">Down</label>
-							  <select name="down">
+							  <select name="down" required>
 								<option value="" disabled selected>Select a down</option>
 								<option value=1>1st</option>
 								<option value=2>2nd</option>
@@ -126,12 +126,12 @@
 						
 						<div class="pure-control-group">
 							<label for="ytogo">Yards to Go</label>
-							<input id="ytogo" name="ytogo" type="ytogo" placeholder="Enter a number...">
+							<input id="ytogo" name="ytogo" type="ytogo" placeholder="Enter a number..." required>
 						</div>
 						
 						<div class="pure-control-group">
 							<label for="oformation">Offense Formation</label>
-							  <select name="oformation">
+							  <select name="oformation" required>
 								<option value="" disabled selected>Select an offense formation</option>
 								<option value=1>SHOTGUN</option>
 								<option value=2>EMPTY</option>
@@ -144,17 +144,17 @@
 						
 						<div class="pure-control-group">
 							<label for="definbox">Defenders in The Box</label>
-							<input id="definbox" name="definbox" type="definbox" placeholder="Enter a number...">
+							<input id="definbox" name="definbox" type="definbox" placeholder="Enter a number..." required>
 						</div>
 						
 						<div class="pure-control-group">
 							<label for="passrushers">Pass Rushers</label>
-							<input id="passrushers" name="passrushers" type="passrushers" placeholder="Enter a number...">
+							<input id="passrushers" name="passrushers" type="passrushers" placeholder="Enter a number..." required>
 						</div>
 						
 						<div class="pure-control-group">
 							<label for="offensep">Offense Personnel</label>
-							  <select name="offensep">
+							  <select name="offensep" required>
 								<option value="" disabled selected>Select an offense personnel set</option>
 								<option value=1>1 RB, 1 TE, 3 WR</option>
 								<option value=2>1 RB, 0 TE, 4 WR</option>
@@ -175,7 +175,7 @@
 						
 						<div class="pure-control-group">
 							<label for="defensep">Defense Personnel</label>
-							  <select name="defensep">
+							  <select name="defensep" required>
 								<option value="" disabled selected>Select a defense personnel set</option>
 								<option value=1>4 DL, 2 LB, 5 DB</option>
 								<option value=2>4 DL, 1 LB, 6 DB</option>

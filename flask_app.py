@@ -6,7 +6,11 @@ import pickle as p
 app = Flask(__name__)
 app.add_url_rule('/static/<path:filename>', endpoint='static',
                  view_func=app.send_static_file)
-app.csmodel = p.load( open( "catchSeparationModel.pkl", "rb" ) )
+				 
+try:
+	app.csmodel = p.load( open( "catchSeparationModel.pkl", "rb" ) )
+except FileNotFoundError:
+	app.csmodel = p.load( open( "/home/ssetegne/nfl_animation_site/catchSeparationModel.pkl", "rb" ) )
 	 
 def getPlay(datadf, gameId, playId):
     filtdf = datadf[(datadf['gameId'] == int(gameId)) & (datadf['playId'] == int(playId))]
