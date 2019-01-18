@@ -1,5 +1,5 @@
 # 2019 NFL Big Data Bowl Submission
-## by Sam Setegne
+#### by Sam Setegne
 
 ## Table of Contents
 [Introduction](#introduction)
