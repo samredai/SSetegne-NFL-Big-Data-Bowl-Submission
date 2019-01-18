@@ -1,23 +1,23 @@
 # NFL-Big-Data-Bowl-Submission
 ## by Sam Setegne
 
-* ## Table of Contents
+## Table of Contents
 [Introduction](#introduction)
 ##### Model Development
-[Importing the tracking data into pandas](#importing-the-tracking-data-into-pandas)
-[Identifying Who Caught the Football & the Closest Defender](#identifying-who-caught-the-football--the-closest-defender)
-[Calculating Catch Separation](#calculating-catch-separation)
-[Identifying The Type of Receiver-Routes](#identifying-the-type-of-receiver-routes)
-[Add Additional Features from Raw Play Data](#add-additional-features-from-raw-play-data)
-[Preparing the Data for Training: One Hot Encoding](#preparing-the-data-for-training-one-hot-encoding)
-[Preparing Data & Training KNN Model](#preparing-data--training-knn-model)
-[Preparing the Data for Training: Train-Test Split](#preparing-the-data-for-training-train-test-split)
-[Training the K-Nearest-Neighbor Regression Model](#training-the-k-nearest-neighbor-regression-model)
+[Importing the tracking data into pandas](#importing-the-tracking-data-into-pandas)  
+[Identifying Who Caught the Football & the Closest Defender](#identifying-who-caught-the-football--the-closest-defender)  
+[Calculating Catch Separation](#calculating-catch-separation)  
+[Identifying The Type of Receiver-Routes](#identifying-the-type-of-receiver-routes)  
+[Add Additional Features from Raw Play Data](#add-additional-features-from-raw-play-data)  
+[Preparing the Data for Training: One Hot Encoding](#preparing-the-data-for-training-one-hot-encoding)  
+[Preparing Data & Training KNN Model](#preparing-data--training-knn-model)  
+[Preparing the Data for Training: Train-Test Split](#preparing-the-data-for-training-train-test-split)  
+[Training the K-Nearest-Neighbor Regression Model](#training-the-k-nearest-neighbor-regression-model)  
 ##### Model Implementation
-[Functional Flow of Catch Separation Model API](#functional-flow-of-catch-separation-model-api)
-[Creating the Flask API](#creating-the-flask-api)
-[Creating a Route To Receive Pre-Snap Data](#creating-a-route-to-receive-pre-snap-data)
-[Make a Catch Separation Prediction and Return it to The User](#make-a-catch-separation-prediction-and-return-it-to-the-user)
+[Functional Flow of Catch Separation Model API](#functional-flow-of-catch-separation-model-api)  
+[Creating the Flask API](#creating-the-flask-api)  
+[Creating a Route To Receive Pre-Snap Data](#creating-a-route-to-receive-pre-snap-data)  
+[Make a Catch Separation Prediction and Return it to The User](#make-a-catch-separation-prediction-and-return-it-to-the-user)  
 
 # Introduction
 
