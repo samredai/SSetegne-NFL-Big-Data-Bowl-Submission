@@ -119,4 +119,4 @@ model = neighbors.KNeighborsRegressor(n_neighbors = 23)
 model.fit(x_train, y_train)  #fit the model
 
 # Pickle the model
-p.dump(model, open('catchSeparationModel.pkl','wb'))
+#p.dump(model, open('catchSeparationModel.pkl','wb'))

@@ -1,0 +1,36 @@
+body {
+  background-color: #232c2b;
+  color: white;
+}
+
+.block {
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: #232c2b;
+  color: #fff;
+  padding: 15px 15px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+ /* unvisited link */
+a:link {
+  color: #ea3b2a;
+}
+
+/* visited link */
+a:visited {
+  color: #87683a;
+}
+
+/* mouse over link */
+a:hover {
+  color: #d6be64;
+}
+
+/* selected link */
+a:active {
+  color: #232c2b;
+} 
