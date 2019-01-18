@@ -13,9 +13,9 @@
 [Preparing Data & Training KNN Model](#preparing-data--training-knn-model)  
 [Preparing the Data for Training: Train-Test Split](#preparing-the-data-for-training-train-test-split)  
 [Training the K-Nearest-Neighbor Regression Model](#training-the-k-nearest-neighbor-regression-model)  
-##### Model Implementation
+##### Catch Separation Model as a Service
 [Functional Flow of Catch Separation Model API](#functional-flow-of-catch-separation-model-api)  
-[Creating the Flask API](#creating-the-flask-api)  
+[Making a Pre-Snap Prediction of Catch Separation](#creating-the-flask-api)  
 [Creating a Route To Receive Pre-Snap Data](#creating-a-route-to-receive-pre-snap-data)  
 [Make a Catch Separation Prediction and Return it to The User](#make-a-catch-separation-prediction-and-return-it-to-the-user)  
 
