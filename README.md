@@ -119,7 +119,7 @@ defending_corner = dfcatch[(dfcatch['x'] == closest_corner_coordinates[0]) & (df
 
 ## Calculating Catch Separation
 
-Let's ```py import math ``` and create another simple function that we can use to calculate the distances between the players (the catch separation).
+Let's ``` import math ``` and create another simple function that we can use to calculate the distances between the players (the catch separation).
 ```py
 import math
 
@@ -179,7 +179,7 @@ def addCatchSeparation(dfcatch):
     return dfcatch_wSeparation
 ```
 
-Now that we have a function we can pass in some catch data to and have the receiver, defender, and catch separation added, let's loop through every game and do this for every play then combine this data into a DataFrame called ```py main_df ```. The ```py if ``` will execute for the first loop to create main_df with the plays from the first game, then every loop after will fall to ```py else ``` and will simply append the data to the already created DataFrame main_df.
+Now that we have a function we can pass in some catch data to and have the receiver, defender, and catch separation added, let's loop through every game and do this for every play then combine this data into a DataFrame called ``` main_df ```. The ``` if ``` will execute for the first loop to create main_df with the plays from the first game, then every loop after will fall to ``` else ``` and will simply append the data to the already created DataFrame main_df.
 
 ```py
 for main_counter, gameId in enumerate(games):
@@ -321,7 +321,7 @@ main_df = main_df.drop(['xReceiverMate5', 'yReceiverMate5', 'xReceiverMate6', 'y
 
 ## Add Additional Features from Raw Play Data
 
-The following code will bring in some additional fields (```py'down','yardsToGo','offenseFormation','defendersInTheBox','numberOfPassRushers','personnel.defense','personnel.offense'```) from the raw play data and merge those fields to main_df. We will use these as additional features when training the model.
+The following code will bring in some additional fields (```'down','yardsToGo','offenseFormation','defendersInTheBox','numberOfPassRushers','personnel.defense','personnel.offense'```) from the raw play data and merge those fields to main_df. We will use these as additional features when training the model.
 ```py
 # Read in play data
 plays = pd.read_csv(r'Data/plays.csv')
