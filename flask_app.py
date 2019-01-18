@@ -1,11 +1,17 @@
-from flask import Flask, render_template_string
+from flask import Flask, render_template, render_template_string, request, current_app
 import pandas as pd
 import traceback
+import pickle as p
 
 app = Flask(__name__)
 app.add_url_rule('/static/<path:filename>', endpoint='static',
                  view_func=app.send_static_file)
-
+				 
+try:
+	app.csmodel = p.load( open( "catchSeparationModel.pkl", "rb" ) )
+except FileNotFoundError:
+	app.csmodel = p.load( open( "/home/ssetegne/nfl_animation_site/catchSeparationModel.pkl", "rb" ) )
+	 
 def getPlay(datadf, gameId, playId):
     filtdf = datadf[(datadf['gameId'] == int(gameId)) & (datadf['playId'] == int(playId))]
     return filtdf
@@ -390,6 +396,33 @@ def gameAnimation(req_gameId, req_playId):
         except Exception as e:
                 return ("There was a problem: " + str(e) + "\nFull Traceback:\n " + str(traceback.format_exc()))
 
+@app.route("/csm/v1", methods=['GET', 'POST'])
+def catchSeparationModel():
+	if request.method == 'POST':
+		sample = {}
+		sample[0] = [request.form["rec2_xroute"]] # xReceiverMate1
+		sample[1] = [request.form["rec2_yroute"]] # yReceiverMate1
+		sample[2] = [request.form["rec3_xroute"]] # xReceiverMate2
+		sample[3] = [request.form["rec3_yroute"]] # yReceiverMate2
+		sample[4] = [request.form["rec4_xroute"]] # xReceiverMate3
+		sample[5] = [request.form["rec4_yroute"]] # yReceiverMate3
+		sample[6] = [request.form["rec5_xroute"]] # xReceiverMate4
+		sample[7] = [request.form["rec5_yroute"]] # yReceiverMate4
+		sample[8] = [request.form["rectar_xroute"]] # xcatchingReceiverRoute
+		sample[9] = [request.form["rectar_yroute"]] # ycatchingReceiverRoute
+		sample[10] = [request.form["down"]]
+		sample[11] = [request.form["ytogo"]]
+		sample[12] = [request.form["oformation"]]
+		sample[13] = [request.form["definbox"]]
+		sample[14] = [request.form["passrushers"]]
+		sample[15] = [request.form["defensep"]]
+		sample[16] = [request.form["offensep"]]
+		
+		sampledf = pd.DataFrame(sample)
+		
+		return str(current_app.csmodel.predict(sampledf))
+	else:
+		return render_template('catch_separation.html')
 
 if __name__ == "__main__":
-        app.run()
+        app.run(debug=True)

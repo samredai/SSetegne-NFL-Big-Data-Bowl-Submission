@@ -203,9 +203,35 @@ for index, row in main_df.iterrows():
 # Drop 5th and 6th additional receiver data which is rarely applicable
 main_df = main_df.drop(['xReceiverMate5', 'yReceiverMate5', 'xReceiverMate6', 'yReceiverMate6'], axis=1)
 
-# Select only the rows where the following columns have no null values
-# xReceiverMate1, yReceiverMate1, xReceiverMate2, yReceiverMate2, xReceiverMate3, yReceiverMate3, xReceiverMate4, yReceiverMate4, xcatchingReceiverRoute, ycatchingReceiverRoute, catchSeparation
-main_df = main_df[main_df.xReceiverMate4.notnull()][main_df.xReceiverMate3.notnull()][main_df.xReceiverMate2.notnull()][main_df.xReceiverMate1.notnull()][main_df.yReceiverMate4.notnull()][main_df.yReceiverMate3.notnull()][main_df.yReceiverMate2.notnull()][main_df.yReceiverMate1.notnull()][main_df.xcatchingReceiverRoute.notnull()][main_df.ycatchingReceiverRoute.notnull()][main_df.catchSeparation.notnull()]
+# Read in play data
+plays = pd.read_csv(r'Data/plays.csv')
+# Isolate play features to be used in training (and gameId and playId to merge to main dataset)
+play_features = plays[['gameId','playId','down','yardsToGo','offenseFormation','defendersInTheBox','numberOfPassRushers','personnel.defense','personnel.offense']]
 
+# Merge play features to main data
+main_df = pd.merge(main_df, play_features,  how='left', on=['gameId','playId'])
+
+# Select only the rows where the following columns have no null values
+'''
+xReceiverMate1
+yReceiverMate1
+xReceiverMate2
+yReceiverMate2
+xReceiverMate3
+yReceiverMate3
+xReceiverMate4
+yReceiverMate4
+xcatchingReceiverRoute
+ycatchingReceiverRoute
+catchSeparation
+down
+yardsToGo
+offenseFormation
+defendersInTheBox
+numberOfPassRushers
+personnel.defense
+personnel.offense
+'''
+main_df = main_df[main_df.xReceiverMate4.notnull()][main_df.xReceiverMate3.notnull()][main_df.xReceiverMate2.notnull()][main_df.xReceiverMate1.notnull()][main_df.yReceiverMate4.notnull()][main_df.yReceiverMate3.notnull()][main_df.yReceiverMate2.notnull()][main_df.yReceiverMate1.notnull()][main_df.xcatchingReceiverRoute.notnull()][main_df.ycatchingReceiverRoute.notnull()][main_df.catchSeparation.notnull()][main_df.down.notnull()][main_df.yardsToGo.notnull()][main_df.offenseFormation.notnull()][main_df.defendersInTheBox.notnull()][main_df.numberOfPassRushers.notnull()][main_df['personnel.defense'].notnull()][main_df['personnel.offense'].notnull()]
 # Output the result to a csv file
 #main_df.to_csv(r'derivedData/catchSeparationData.csv', index=False)

@@ -1,0 +1,216 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+
+<body>
+	<div class="outer">
+	  <div class="middle">
+		<div class="center formbg inner">
+			<div class="formbox">
+				<form class="pure-form pure-form-aligned" method="POST" action="/csm/v1">
+					<fieldset>
+						<div class="pure-control-group">
+							<label for="rectar">Target's Route</label>
+							  <select name="rectar_xroute" required>
+								<option value="" disabled selected>Select a route distance</option>
+								<option value=1>Short</option>
+								<option value=2>Medium</option>
+								<option value=3>Deep</option>
+							  </select>
+							  <select name="rectar_yroute" required>
+								<option value="" disabled selected>Select a route type</option>
+								<option value=1>Stop</option>
+								<option value=2>Slant</option>
+								<option value=3>Flat</option>
+								<option value=4>Out</option>
+								<option value=5>In</option>
+								<option value=6>Post</option>
+								<option value=7>Corner</option>
+								<option value=8>Fly</option>
+							  </select>
+							<!--<span class="pure-form-message-inline">This is a required field.</span>-->
+						</div>
+
+						<div class="pure-control-group">
+							<label for="rec2">2nd Receiver's Route</label>
+							  <select name="rec2_xroute" required>
+								<option value="" disabled selected>Select a route distance</option>
+								<option value=1>Short</option>
+								<option value=2>Medium</option>
+								<option value=3>Deep</option>
+							  </select>
+							  <select name="rec2_yroute" required>
+								<option value="" disabled selected>Select a route type</option>
+								<option value=1>Stop</option>
+								<option value=2>Slant</option>
+								<option value=3>Flat</option>
+								<option value=4>Out</option>
+								<option value=5>In</option>
+								<option value=6>Post</option>
+								<option value=7>Corner</option>
+								<option value=8>Fly</option>
+							  </select>
+						</div>
+
+						<div class="pure-control-group">
+							<label for="rec3">3rd Receiver's Route</label>
+							  <select name="rec3_xroute" required>
+								<option value="" disabled selected>Select a route distance</option>
+								<option value=1>Short</option>
+								<option value=2>Medium</option>
+								<option value=3>Deep</option>
+							  </select>
+							  <select name="rec3_yroute" required>
+								<option value="" disabled selected>Select a route type</option>
+								<option value=1>Stop</option>
+								<option value=2>Slant</option>
+								<option value=3>Flat</option>
+								<option value=4>Out</option>
+								<option value=5>In</option>
+								<option value=6>Post</option>
+								<option value=7>Corner</option>
+								<option value=8>Fly</option>
+							  </select>
+						</div>
+						
+						<div class="pure-control-group">
+							<label for="rec4">4th Receiver's Route</label>
+							  <select name="rec4_xroute" required>
+								<option value="" disabled selected>Select a route distance</option>
+								<option value=1>Short</option>
+								<option value=2>Medium</option>
+								<option value=3>Deep</option>
+							  </select>
+							  <select name="rec4_yroute" required>
+								<option value="" disabled selected>Select a route type</option>
+								<option value=1>Stop</option>
+								<option value=2>Slant</option>
+								<option value=3>Flat</option>
+								<option value=4>Out</option>
+								<option value=5>In</option>
+								<option value=6>Post</option>
+								<option value=7>Corner</option>
+								<option value=8>Fly</option>
+							  </select>
+						</div>
+
+						<div class="pure-control-group">
+							<label for="rec5">5th Receiver's Route</label>
+							  <select name="rec5_xroute" required>
+								<option value="" disabled selected>Select a route distance</option>
+								<option value=1>Short</option>
+								<option value=2>Medium</option>
+								<option value=3>Deep</option>
+							  </select>
+							  <select name="rec5_yroute" required>
+								<option value="" disabled selected>Select a route type</option>
+								<option value=1>Stop</option>
+								<option value=2>Slant</option>
+								<option value=3>Flat</option>
+								<option value=4>Out</option>
+								<option value=5>In</option>
+								<option value=6>Post</option>
+								<option value=7>Corner</option>
+								<option value=8>Fly</option>
+							  </select>
+						</div>
+						
+						<div class="pure-control-group">
+							<label for="down">Down</label>
+							  <select name="down" required>
+								<option value="" disabled selected>Select a down</option>
+								<option value=1>1st</option>
+								<option value=2>2nd</option>
+								<option value=3>3rd</option>
+								<option value=4>4th</option>
+							  </select>
+						</div>
+						
+						<div class="pure-control-group">
+							<label for="ytogo">Yards to Go</label>
+							<input id="ytogo" name="ytogo" type="ytogo" placeholder="Enter a number..." required>
+						</div>
+						
+						<div class="pure-control-group">
+							<label for="oformation">Offense Formation</label>
+							  <select name="oformation" required>
+								<option value="" disabled selected>Select an offense formation</option>
+								<option value=1>SHOTGUN</option>
+								<option value=2>EMPTY</option>
+								<option value=3>SINGLEBACK</option>
+								<option value=4>I_FORM</option>
+								<option value=5>PISTOL</option>
+								<option value=6>JUMBO</option>
+							  </select>
+						</div>
+						
+						<div class="pure-control-group">
+							<label for="definbox">Defenders in The Box</label>
+							<input id="definbox" name="definbox" type="definbox" placeholder="Enter a number..." required>
+						</div>
+						
+						<div class="pure-control-group">
+							<label for="passrushers">Pass Rushers</label>
+							<input id="passrushers" name="passrushers" type="passrushers" placeholder="Enter a number..." required>
+						</div>
+						
+						<div class="pure-control-group">
+							<label for="offensep">Offense Personnel</label>
+							  <select name="offensep" required>
+								<option value="" disabled selected>Select an offense personnel set</option>
+								<option value=1>1 RB, 1 TE, 3 WR</option>
+								<option value=2>1 RB, 0 TE, 4 WR</option>
+								<option value=3>1 RB, 3 TE, 1 WR</option>
+								<option value=4>1 RB, 2 TE, 2 WR</option>
+								<option value=5>0 RB, 1 TE, 4 WR</option>
+								<option value=6>2 RB, 1 TE, 2 WR</option>
+								<option value=7>2 RB, 0 TE, 3 WR</option>
+								<option value=8>2 RB, 2 TE, 1 WR</option>
+								<option value=9>0 RB, 2 TE, 3 WR</option>
+								<option value=10>0 RB, 0 TE, 5 WR</option>
+								<option value=11>1 RB, 1 TE, 2 WR,1 DL</option>
+								<option value=12>3 RB, 1 TE, 1 WR</option>
+								<option value=13>1 RB, 2 TE, 1 WR,1 DL</option>
+								<option value=14>2 RB, 3 TE, 2 WR</option>
+							  </select>
+						</div>
+						
+						<div class="pure-control-group">
+							<label for="defensep">Defense Personnel</label>
+							  <select name="defensep" required>
+								<option value="" disabled selected>Select a defense personnel set</option>
+								<option value=1>4 DL, 2 LB, 5 DB</option>
+								<option value=2>4 DL, 1 LB, 6 DB</option>
+								<option value=3>3 DL, 3 LB, 5 DB</option>
+								<option value=4>4 DL, 4 LB, 3 DB</option>
+								<option value=5>2 DL, 4 LB, 5 DB</option>
+								<option value=6>4 DL, 3 LB, 4 DB</option>
+								<option value=7>2 DL, 3 LB, 6 DB</option>
+								<option value=8>3 DL, 4 LB, 4 DB</option>
+								<option value=9>1 DL, 3 LB, 7 DB</option>
+								<option value=10>3 DL, 2 LB, 6 DB</option>
+								<option value=11>1 DL, 4 LB, 6 DB</option>
+								<option value=12>3 DL, 1 LB, 7 DB</option>
+								<option value=13>1 DL, 5 LB, 5 DB</option>
+								<option value=14>5 DL, 4 LB, 2 DB</option>
+								<option value=15>2 DL, 5 LB, 4 DB</option>
+								<option value=16>1 DL, 4 LB, 5 DB</option>
+								<option value=17>2 DL, 2 LB, 7 DB</option>
+								<option value=18>0 DL, 5 LB, 6 DB</option>
+								<option value=19>0 DL, 4 LB, 7 DB</option>
+								<option value=20>5 DL, 1 LB, 5 DB</option>
+								<option value=21>5 DL, 2 LB, 4 DB</option>
+								<option value=22>1 DL, 3 LB, 6 DB, 1 WR</option>
+								<option value=23>2 DL, 4 LB, 4 DB, 1 OL</option>
+								<option value=24>1 DL, 2 LB, 8 DB</option>
+							  </select>
+						</div>
+
+						<div class="pure-controls">
+							<button type="submit" class="pure-button pure-button-primary">Predict Catch Separation!</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	  </div>
+	</div>
+</body>
