@@ -3,6 +3,11 @@
 
 ## Table of Contents
 [Introduction](#introduction)
+##### Catch Separation Model as a Service
+[Functional Flow of Catch Separation Model API](#functional-flow-of-catch-separation-model-api)  
+[Making a Pre-Snap Prediction of Catch Separation](#creating-the-flask-api)  
+[Creating a Route To Receive Pre-Snap Data](#creating-a-route-to-receive-pre-snap-data)  
+[Make a Catch Separation Prediction and Return it to The User](#make-a-catch-separation-prediction-and-return-it-to-the-user)  
 ##### Model Development
 [Importing the tracking data into pandas](#importing-the-tracking-data-into-pandas)  
 [Identifying Who Caught the Football & the Closest Defender](#identifying-who-caught-the-football--the-closest-defender)  
@@ -13,17 +18,49 @@
 [Preparing Data & Training KNN Model](#preparing-data--training-knn-model)  
 [Preparing the Data for Training: Train-Test Split](#preparing-the-data-for-training-train-test-split)  
 [Training the K-Nearest-Neighbor Regression Model](#training-the-k-nearest-neighbor-regression-model)  
-##### Catch Separation Model as a Service
-[Functional Flow of Catch Separation Model API](#functional-flow-of-catch-separation-model-api)  
-[Making a Pre-Snap Prediction of Catch Separation](#creating-the-flask-api)  
-[Creating a Route To Receive Pre-Snap Data](#creating-a-route-to-receive-pre-snap-data)  
-[Make a Catch Separation Prediction and Return it to The User](#make-a-catch-separation-prediction-and-return-it-to-the-user)  
 
 # Introduction
 
 By now, everyone has read one of the many articles detailing how Big Data and data science have lead to influential changes in how the sports world approaches analytics. From player tracking to pattern recognition to interactions between fans on social media, massive amounts of data (a.k.a potential) is being collected daily. Even though we're not even close to pushing the limits, data science has already made remarkable impacts in player safety, league competitiveness, fan engagement, and advertising.  In my submission to the ![2019 NFL Big Data Bowl competition](https://github.com/nfl-football-ops/Big-Data-Bowl), I've chosen to tackle theme number 3, identifying the best receiver-route combinations.
 
 In this guide, I will walk you through the development and implementation of a real-time API that uses a K-Nearest-Neighbor regression model to make a pre-snap prediction of how much separation the target receiver will have from the closest defender. To see the final product, head over to http://nfl.mercutioanalytics.com/ and while you're there, check out the graphic visualizations for every play of every game!
+
+# Using The Catch Separation Tool
+
+## Functional Flow of Catch Separation Model API
+![](http://yuml.me/diagram/plain;dir:lr;scale:150/class/[Analyst{bg:tan}]->[Pre-snap%20Information{bg:springgreen}],[Pre-snap%20Information]->[Catch%20Separation%20API{bg:tomato}],[Catch%20Separation%20API]->[Scoring%20Engine{bg:red}],[Scoring%20Engine]->[Predicted%20Catch%20Separation{bg:gold}],[Predicted%20Catch%20Separation]->[Catch%20Separation%20API],[Catch%20Separation%20API]->[Analyst] "yUML")
+
+## Making a Catch Separation Prediction Using Pre-Snap Information
+
+To make a pre-snap catch separation prediction, head over to http://nfl.mercutioanalytics.com/ and click on **Catch Separation Prediction Tool**.
+
+![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/home_maas.png)
+
+Complete the Pre-Snap Information Form, including the routes for each receiver (Enter the route for the primary target in the **Target's Route** field.)
+
+![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/csm_input_screen.png)
+
+Click **Predict Catch Separation!** and the Pre-Snap information will be processed through the Catch Separation Model and a predicted catch separation value in yards between the receiver and the closes defending corner will be displayed.
+
+![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/prediction_screen.png)
+
+## View Animations Created From Player Tracking Data
+
+To view animations of the tracking data, head to http://nfl.mercutioanalytics.com/ and click **Visualize Tracking Data**.
+
+![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/home_visualize.png)
+
+From the list of games, select a game that you wish to view.
+
+![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/games.png)
+
+After you select a game, you will see a list of descriptions for each play from that game. Select the play that you wish to view.
+
+![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/plays.png)
+
+The field will be displayed with the players on the home team shown as red circles, and the plays on the away team shown as blue circles. Each WR, TE, RB, and FB on the offense is highlighted with a circle that has a 5 yard radius. You can start the animation by clicking **Play** and pause the animation by clicking **Pause**.
+
+![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/animation.png)
 
 # Model Development
 
@@ -492,14 +529,6 @@ model.fit(x_train, y_train)  #fit the model
 p.dump(model, open('catchSeparationModel.pkl','wb'))
 ```
 
-
-# Model Implementation
-
-## Functional Flow of Catch Separation Model API
-![](http://yuml.me/diagram/plain;dir:lr;scale:150/class/[Analyst{bg:tan}]->[Pre-snap%20Information{bg:springgreen}],[Pre-snap%20Information]->[Catch%20Separation%20API{bg:tomato}],[Catch%20Separation%20API]->[Scoring%20Engine{bg:red}],[Scoring%20Engine]->[Predicted%20Catch%20Separation{bg:gold}],[Predicted%20Catch%20Separation]->[Catch%20Separation%20API],[Catch%20Separation%20API]->[Analyst] "yUML")
-
-## Creating the Flask API
-## Creating a Route To Receive Pre-Snap Data
-## Make a Catch Separation Prediction and Return it to The User
+...and that's it, the model is ready to be implemented!
 
 # Summary Analysis
