@@ -39,7 +39,7 @@ Complete the Pre-Snap Information Form, including the routes for each receiver (
 
 ![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/csm_input_screen.png)
 
-Click **Predict Catch Separation!** and the Pre-Snap information will be processed through the Catch Separation Model and a predicted catch separation value in yards between the receiver and the closes defending corner will be displayed.
+Click **Predict Catch Separation!** and the Pre-Snap information will be processed through the Catch Separation Model and a predicted catch separation value in yards between the receiver and the closest defending corner will be displayed.
 
 ![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/prediction_screen.png)
 
