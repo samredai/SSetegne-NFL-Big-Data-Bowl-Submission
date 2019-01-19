@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import pickle as p
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
@@ -92,11 +93,11 @@ for K in range(50):
     K = K+1
     model = neighbors.KNeighborsRegressor(n_neighbors = K)
     model.fit(x_train, y_train)  #fit the model
-    pred=model.predict(x_test) #make prediction on test set
+    pred = model.predict(x_test) #make prediction on test set
     rmse = sqrt(mean_squared_error(y_test,pred)) #calculate rmse
-	rmse_vals.append(rmse) #store rmse values
-	mae = mean_absolute_error(y_test, pred) #calculate mae
-	mae_vals.append(mae)
+    rmse_vals.append(rmse) #store rmse values
+    mae = mean_absolute_error(y_test, pred) #calculate mae
+    mae_vals.append(mae)
     print('k= ' , K , '-----RMSE=', rmse,'-----MAE=',mae)
 
 k_values = np.linspace(1,50)
