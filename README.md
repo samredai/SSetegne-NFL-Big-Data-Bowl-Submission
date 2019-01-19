@@ -3,11 +3,10 @@
 
 ## Table of Contents
 [Introduction](#introduction)
-##### Catch Separation Model as a Service
+##### Using The Catch Separation Tool
 [Functional Flow of Catch Separation Model API](#functional-flow-of-catch-separation-model-api)  
-[Making a Pre-Snap Prediction of Catch Separation](#creating-the-flask-api)  
-[Creating a Route To Receive Pre-Snap Data](#creating-a-route-to-receive-pre-snap-data)  
-[Make a Catch Separation Prediction and Return it to The User](#make-a-catch-separation-prediction-and-return-it-to-the-user)  
+[Making a Catch Separation Prediction Using Pre-Snap Information](#making-a-catch-separation-prediction-using-pre-snap-information)  
+[View Animations Created From Player Tracking Data](#view-animations-created-from-player-tracking-data)  
 ##### Model Development
 [Importing the tracking data into pandas](#importing-the-tracking-data-into-pandas)  
 [Identifying Who Caught the Football & the Closest Defender](#identifying-who-caught-the-football--the-closest-defender)  
