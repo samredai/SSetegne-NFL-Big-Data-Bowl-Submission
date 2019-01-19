@@ -37,29 +37,29 @@ To make a pre-snap catch separation prediction, head over to http://nfl.mercutio
 
 Complete the Pre-Snap Information Form, including the routes for each receiver (Enter the route for the primary target in the **Target's Route** field.)
 
-![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/csm_input_screen.png)
+![CSM Input Screen](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/csm_input_screen.png)
 
 Click **Predict Catch Separation!** and the Pre-Snap information will be processed through the Catch Separation Model and a predicted catch separation value in yards between the receiver and the closest defending corner will be displayed.
 
-![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/prediction_screen.png)
+![Prediction Screen](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/prediction_screen.png)
 
 ## View Animations Created From Player Tracking Data
 
 To view animations of the tracking data, head to http://nfl.mercutioanalytics.com/ and click **Visualize Tracking Data**.
 
-![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/home_visualize.png)
+![Home Visualize](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/home_visualize.png)
 
 From the list of games, select a game that you wish to view.
 
-![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/games.png)
+![Games](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/games.png)
 
 After you select a game, you will see a list of descriptions for each play from that game. Select the play that you wish to view.
 
-![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/plays.png)
+![Plays](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/plays.png)
 
 The field will be displayed with the players on the home team shown as red circles, and the plays on the away team shown as blue circles. Each WR, TE, RB, and FB on the offense is highlighted with a circle that has a 5 yard radius. You can start the animation by clicking **Play** and pause the animation by clicking **Pause**.
 
-![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/animation.png)
+![Animation](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/animation.png)
 
 # Model Development
 
@@ -459,6 +459,27 @@ main_df['personnel.defense'] = main_df['personnel.defense'].map(dpersonnelMap)
 main_df['personnel.offense'] = main_df['personnel.offense'].map(opersonnelMap)
 ```
 
+## Preparing the Data for Training: Preliminary Data Analysis
+
+Let's plot our label and features to get an idea of what our training data looks like.
+
+```
+main_df.hist(figsize=(16, 20), bins=50, xlabelsize=8, ylabelsize=8)
+plt.show()
+```
+
+![Features and Labels Distributions](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/features_labels_distributions.png)
+
+A few things that you can notice is that defense personnel is much more varied than offense personnel, hinting at a more dynamic nature to personnel choices by defensive coordinators. As expected, a relatively small portion of our data consists of 4th down plays since we are looking at completed passes only. The catch routes show positive variation for the catcing receiver as well as receiver mate routes although short passes seem much more common (indicated by x route values of 1 which we mapped to catches less than 15 yards beyond the line of scrimmage).
+
+Let's look a little closer at our label, the catch separation in yards.
+
+![Catch Separation Histogram](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/catch_separation_hist.png)
+
+The most common separation between a receiver and his closest defender on completed pass plays are around 1 to 2 yards, accounting for about two-thirds of all catches in the data. As expected, completed passes with higher catch separations have decreased frequencey with catch separations of 8+ yards accounting for less than 200 catches combined.
+
+Let's move on to splitting our data into training sets and test sets.
+
 ## Preparing the Data for Training: Train-Test Split
 
 Let's drop any fields that are not features or labels.
@@ -513,8 +534,11 @@ plt.show()
 ```
 
 Here's a look at the plot. As you can see, the measurements of error decreases and then levels off. A k-value of 23 seems to be the point where increasing the k-value doesn't provide any more accuracy so let's go with that.
+
+![KNN Error Graph](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/knn_error_graph.png)
+
 ```py
- Initialize a KNN Regressor: K value with lowest RME & MAE is 23
+# Initialize a KNN Regressor: K value with lowest RME & MAE is 23
 model = neighbors.KNeighborsRegressor(n_neighbors = 23)
 ```
 
@@ -529,5 +553,3 @@ p.dump(model, open('catchSeparationModel.pkl','wb'))
 ```
 
 ...and that's it, the model is ready to be implemented!
-
-# Summary Analysis
