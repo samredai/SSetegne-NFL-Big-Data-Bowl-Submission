@@ -33,8 +33,6 @@ In this guide, I will walk you through the development and implementation of a r
 
 To make a pre-snap catch separation prediction, head over to http://nfl.mercutioanalytics.com/ and click on **Catch Separation Prediction Tool**.
 
-<img src="https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/home_maas.png" width="150">
-
 ![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/home_maas.png)
 
 Complete the Pre-Snap Information Form, including the routes for each receiver (Enter the route for the primary target in the **Target's Route** field.)
