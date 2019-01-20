@@ -42,21 +42,15 @@ Click **Predict Catch Separation!** and the Pre-Snap information will be process
 
 ## View Animations Created From Player Tracking Data
 
-To view animations of the tracking data, head to http://nfl.mercutioanalytics.com/ and click **Visualize Tracking Data**.
+1) To view animations of the tracking data, head to http://nfl.mercutioanalytics.com/ and click **Visualize Tracking Data**.
+2) From the list of games, select a game that you wish to view.
 
 ![Home Visualize](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/home_visualize.png)
 
-From the list of games, select a game that you wish to view.
-
-![Games](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/games.png)
-
-After you select a game, you will see a list of descriptions for each play from that game. Select the play that you wish to view.
+1) After you select a game, you will see a list of descriptions for each play from that game. Select the play that you wish to view.
+2) The field will be displayed with the players on the home team shown as red circles, and the plays on the away team shown as blue circles. Each WR, TE, RB, and FB on the offense is highlighted with a circle that has a 5 yard radius. You can start the animation by clicking **Play** and pause the animation by clicking **Pause**.
 
 ![Plays](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/plays.png)
-
-The field will be displayed with the players on the home team shown as red circles, and the plays on the away team shown as blue circles. Each WR, TE, RB, and FB on the offense is highlighted with a circle that has a 5 yard radius. You can start the animation by clicking **Play** and pause the animation by clicking **Pause**.
-
-![Animation](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/animation.png)
 
 # Model Development
 
