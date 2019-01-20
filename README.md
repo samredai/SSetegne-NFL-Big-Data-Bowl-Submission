@@ -31,13 +31,9 @@ In this guide, I will walk you through the development and implementation of a r
 
 ## Making a Catch Separation Prediction Using Pre-Snap Information
 
-To make a pre-snap catch separation prediction, head over to http://nfl.mercutioanalytics.com/ and click on **Catch Separation Prediction Tool**.
+To make a pre-snap catch separation prediction, head over to http://nfl.mercutioanalytics.com/ and click on **Catch Separation Prediction Tool** then complete the Pre-Snap Information Form, including the routes for each receiver (Enter the route for the primary target in the **Target's Route** field.)
 
 ![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/home_maas.png)
-
-Complete the Pre-Snap Information Form, including the routes for each receiver (Enter the route for the primary target in the **Target's Route** field.)
-
-![CSM Input Screen](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/csm_input_screen.png)
 
 Click **Predict Catch Separation!** and the Pre-Snap information will be processed through the Catch Separation Model and a predicted catch separation value in yards between the receiver and the closest defending corner will be displayed.
 
