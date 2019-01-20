@@ -45,10 +45,16 @@ div[class*=container] {
 
 .container-1 { background: #333; }
 .container-2 { background: #fff; }
-.container-3 { background: #8499B1; }
+.container-3 { background: #000; }
 .container-4 { background: #9888A5; }
 .container-5 { background: #7B6D8D; }
 .container-6 { background: #565554; }
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /*
  BUTTON STYLING
