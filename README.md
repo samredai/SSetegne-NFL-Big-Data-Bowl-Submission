@@ -37,7 +37,7 @@ In this guide, I will walk you through the development and implementation of a r
 
 ![Home MaaS](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/home_maas.png)
 
-Click **Predict Catch Separation!** and the Pre-Snap information will be processed through the Catch Separation Model and a predicted catch separation value in yards between the receiver and the closest defending corner will be displayed.
+Click **Predict Catch Separation!** and the Pre-Snap information will be processed through the Catch Separation Model returning a predicted catch separation value in yards between the receiver and the closest defender.
 
 ![Prediction Screen](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/prediction_screen.png)
 
