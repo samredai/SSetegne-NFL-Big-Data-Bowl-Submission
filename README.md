@@ -57,7 +57,7 @@ Click **Predict Catch Separation!** and the Pre-Snap information will be process
 
 ## Importing the tracking data into pandas
 
-Since we'll be doing a good number of manipulations to the data, here's a handy flow-chart the summarizes this section.
+Since we'll be doing a good number of manipulations to the data, here's a handy flow-chart that summarizes this section.
 ![](http://yuml.me/diagram/plain;dir:lr;scale:80/class/[Tracking%20Data{bg:seagreen}]->[Identify%20Catch%20Receiver%20&%20Closest%20Corner],[Identify%20Catch%20Receiver%20&%20Closest%20Corner]->[Calculate%20Catch%20Separation%20(Distance%20between%20receiver%20and%20closest%20defender%20at%20catch%20frame)],[Calculate%20Catch%20Separation%20(Distance%20between%20receiver%20and%20closest%20defender%20at%20catch%20frame)]->[Identify%20Routes%20of%20Each%20Receiver|X-Route%20options:;Short;Medium;Deep|Y-Route%20Options:;Stop;Slant;Flat;Out;In;Post;Corner;Fly],[Identify%20Routes%20of%20Each%20Receiver|X-Route%20options:;Short;Medium;Deep|Y-Route%20Options:;Stop;Slant;Flat;Out;In;Post;Corner;Fly]->[Create%20a%20Main%20Modeling%20Dataset],[Play%20Data]-.->[Create%20a%20Main%20Modeling%20Dataset],[Create%20a%20Main%20Modeling%20Dataset]->[Prepare%20Data|Features:;Target's%20X-Route;Target's%20Y-Route;2nd%20Receiver's%20X-Route;2nd%20Receiver's%20Y-Route;3rd%20Receiver's%20X-Route;3rd%20Receiver's%20Y-Route;4th%20Receiver's%20X-Route;4th%20Receiver's%20Y-Route;Down;Yards-To-Go;Offense%20Formation;Defenders%20in%20The%20Box;Pass%20Rushers;Offense%20Personnel;Defense%20Personnel|Label:;Catch%20Separation%20(yds){bg:steelblue}] "yUML")
 
 To optimize the performance of handling the raw data, we'll load the csv file for each game into a pandas DataFrame, and place them all into a lookup dictionary that we'll serialize and store as a pickle file.
@@ -91,7 +91,7 @@ dfgame = games[2017091008]
 dfcatch = dfgame[(dfgame['playId'] == 3387) & (dfgame['event'] == 'pass_outcome_caught')]
 ```
 
-Now create a separate tuple containing the footballs x and y coordinates and filter our catch dataset to only contain the tracking data for the players.
+Now create a separate tuple containing the football's x and y coordinates and filter our catch dataset to only contain the tracking data for players (as opposed to the football).
 ```py
 ball_point = (dfcatch[(dfcatch['team']=='ball')]['x'].values[0], dfcatch[(dfcatch['team']=='ball')]['y'].values[0])
 dfcatch_players = dfcatch[(dfcatch['team'] != 'ball')]
@@ -113,7 +113,7 @@ def closest_node(center_point, surrounding_points):
     return surrounding_points[closest_index]
 ```
 
-Next, convert the players points to an array and use the function above to find the closest player to the ball when it was caught (The receiver who caught the ball)
+Next, convert the player's coordinate points to an array and use the function above to find the closest player to the ball when it was caught (The receiver who caught the ball).
 ```py
 player_points = dfcatch_players[['x','y']].values
 closest_player_coordinates = closest_node(ball_point, player_points)
@@ -147,7 +147,7 @@ defending_corner = dfcatch[(dfcatch['x'] == closest_corner_coordinates[0]) & (df
 
 ## Calculating Catch Separation
 
-Let's ``` import math ``` and create another simple function that we can use to calculate the distances between the players (the catch separation).
+Let's ``` import math ``` and create another simple function that we can use to calculate the distance between the players (the catch separation).
 ```py
 import math
 
@@ -207,7 +207,7 @@ def addCatchSeparation(dfcatch):
     return dfcatch_wSeparation
 ```
 
-Now that we have a function we can pass in some catch data to and have the receiver, defender, and catch separation added, let's loop through every game and do this for every play then combine this data into a DataFrame called ``` main_df ```. The ``` if ``` will execute for the first loop to create main_df with the plays from the first game, then every loop after will fall to ``` else ``` and will simply append the data to the already created DataFrame main_df.
+Now that we have a function which we can pass in some catch data to and have the receiver, defender, and catch separation added, let's loop through every game and do this for every play then combine this data into a DataFrame called ``` main_df ```. The ``` if ``` will execute for the first loop to create main_df with the plays from the first game, then every loop after will go to ``` else ``` and will simply append the data to the already created DataFrame main_df.
 
 ```py
 for main_counter, gameId in enumerate(games):
@@ -261,7 +261,7 @@ for main_counter, gameId in enumerate(games):
         main_df = pd.concat([main_df, df_distinctPlays], ignore_index=True)
 ```
 
-Two more columns are needed: One to identify which team is on offense, and a second to identify which team is on defense.
+Two more columns are needed: One to identify which team is on offense, and a second to identify which team is on defense (home or away).
 ```py
 # Add two columns to main_df that show which team is on offense or defense (teams are identified as 'home' or 'away')
 gameId_check = 0
@@ -277,7 +277,7 @@ for index, row in main_df.iterrows():
 
 ## Identifying The Type of Receiver-Routes
 
-To identify the route of every receiver on the field, we're going to analyze how the coordinates of the player evolves from snap to when the ball is caught (either by them or a teammate) and we'll base our analysis on a basic route tree. (See this great article by Matt Bowen over at Bleacher Report on route tree basics: ![NFL 101: Breaking Down the Basics of the Route Tree](https://bleacherreport.com/articles/2016841-nfl-101-breaking-down-the-basics-of-the-route-tree))
+To identify the route of every receiver on the field, we're going to analyze how the coordinates of the player evolves from the snap to when the ball is caught (either by them or a teammate) and we'll base our analysis on a basic route tree. (See this great article by Matt Bowen over at Bleacher Report on route tree basics: https://bleacherreport.com/articles/2016841-nfl-101-breaking-down-the-basics-of-the-route-tree )
 
 In the first half of the code below, we categorize the x movement of the player as 'short', 'medium', or 'deep' by checking for 0-15yds, 15-30yds, and 30+ yards respectively. After that we categorize the y movement of the player as either 'out', 'in', or 'fly' by checking for movement cutting either towards the center of the field, away from the center of the field, or neither. Finally, we take a look at both the x and y routes and compare them to a basic route tree. For example, a 'short' 'out' route would convert to a 'flat' route and a 'deep' 'in' route would convert to a 'post' route.
 ```py
@@ -384,7 +384,7 @@ Here's a flow-chart to give an overview of what we'll be doing in this section.
 ## Preparing Data & Training KNN Model
 ![](http://yuml.me/diagram/plain;dir:lr;scale:150/class/[Modeling%20Dataset{bg:steelblue}]->[One%20hot%20encode%20Features],[One%20hot%20encode%20Features]->[Train-Test%20Split%20(70-30)],[Train-Test%20Split%20(70-30)]->[Min-Max%20Scaler;(Range=0%20to%201)],[Min-Max%20Scaler;(Range=0%20to%201)]->[x_train],[Min-Max%20Scaler;(Range=0%20to%201)]->[y_train],[x_train]->[K-Nearest-Neighbor%20Regressor],[y_train]->[K-Nearest-Neighbor%20Regressor],[K-Nearest-Neighbor%20Regressor]->[Final%20Trained%20Model{bg:salmon}] "yUML")
 
-In order to train a machine learning model, we'll need to convert all of our data into numbers. The technique we're going to use for that is called One Hot Encoding. If you want to read more on this technique, check out this great article by Jason Brownlee which gives a great overview: ![Why One-Hot Encode Data in Machine Learning?](https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/)
+In order to train a machine learning model, we'll need to convert all of our data into numbers. The technique we're going to use for this is called One-Hot Encoding. If you want to read more on this technique, check out this great article by Jason Brownlee which gives a great overview: https://machinelearningmastery.com/why-one-hot-encode-data-in-machine-learning/
 
 First, we'll have to create a map for each categorical variable. The map is essentially a key:value dictionary where the key is the categorical variable and the value is the number we're going to use to replace that categorical variable in the data. (**__note:__** When we pass in data to our final trained model to make a prediction, we'll refer to these same mapping values to convert all of our pre-snap information into numbers that the model can understand)
 ```py
@@ -462,7 +462,7 @@ plt.show()
 
 ![Features and Labels Distributions](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/features_labels_distributions.png)
 
-A few things that you can notice is that defense personnel is much more varied than offense personnel, hinting at a more dynamic nature to personnel choices by defensive coordinators. As expected, a relatively small portion of our data consists of 4th down plays since we are looking at completed passes only. The catch routes show positive variation for the catcing receiver as well as receiver mate routes although short passes seem much more common (indicated by x route values of 1 which we mapped to catches less than 15 yards beyond the line of scrimmage).
+A few things that you can notice is that defense personnel is much more varied than offense personnel, hinting at a more dynamic nature to personnel choices by defensive coordinators. As expected, a relatively small portion of our data consists of 4th down plays since we are looking at completed passes only. The catch routes show positive variation for the catching receiver as well as receiver mate routes, although short passes seem much more common (indicated by x route values of 1 which we mapped to catches less than 15 yards beyond the line of scrimmage).
 
 Let's look a little closer at our label, the catch separation in yards.
 
@@ -489,7 +489,7 @@ x_test = test.drop('catchSeparation', axis=1)
 y_test = test['catchSeparation']
 ```
 
-Next we'll use a Min-Max scaler with a range of 0-1. (If you're unfamiliar with Min-Max scaling, of course, I have a link to a great article. This one is from an article by Sebastian Raschka that's about scaling and normalization in general but has a great concise section on Min-Max scaling: ~[About Feature Scaling and Normalization: Min-Max Scaling](https://sebastianraschka.com/Articles/2014_about_feature_scaling.html#about-min-max-scaling)
+Next we'll use a Min-Max scaler with a range of 0-1. (If you're unfamiliar with Min-Max scaling, of course, I have a link to a great article. This one is by Sebastian Raschka that's about scaling and normalization in general but has a great concise section on Min-Max scaling: https://sebastianraschka.com/Articles/2014_about_feature_scaling.html#about-min-max-scaling )
 ```py
 scaler = MinMaxScaler(feature_range=(0, 1))
 x_train_scaled = scaler.fit_transform(x_train)
@@ -525,7 +525,7 @@ plt.legend(['Root Mean Squared Error', 'Mean Absolute Error'], loc='upper right'
 plt.show()
 ```
 
-Here's a look at the plot. As you can see, the measurements of error decreases and then levels off. A k-value of 23 seems to be the point where increasing the k-value doesn't provide any more accuracy so let's go with that.
+Here's a look at the plot. As you can see, the measurements of error decreases and then levels off. A k-value of 23 seems to be the point where increasing the k-value doesn't provide any more accuracy, so let's go with that.
 
 ![KNN Error Graph](https://github.com/samsetegne/SSetegne-NFL-Big-Data-Bowl-Submission/blob/master/images/knn_error_graph.png)
 
