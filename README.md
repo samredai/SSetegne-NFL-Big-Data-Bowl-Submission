@@ -28,7 +28,7 @@ In this guide, I will walk you through the development and implementation of a r
 # Using The Catch Separation Tool
 
 ## Functional Flow of Catch Separation Model API
-![](http://yuml.me/diagram/plain;dir:lr;scale:150/class/[Analyst{bg:tan}]->[Pre-snap%20Information{bg:springgreen}],[Pre-snap%20Information]->[Catch%20Separation%20API{bg:tomato}],[Catch%20Separation%20API]->[Scoring%20Engine{bg:red}],[Scoring%20Engine]->[Predicted%20Catch%20Separation{bg:gold}],[Predicted%20Catch%20Separation]->[Analyst] "yUML")
+![](http://yuml.me/diagram/plain;dir:lr;scale:150/class/[Analyst{bg:tan}]->[Pre-snap%20Information{bg:springgreen}],[Pre-snap%20Information]->[Catch%20Separation%20API{bg:springgreen}],[Catch%20Separation%20API]->[Scoring%20Engine{bg:springgreen}],[Scoring%20Engine]->[Predicted%20Catch%20Separation{bg:springgreen}],[Predicted%20Catch%20Separation]->[Analyst] "yUML")
 
 ## Making a Catch Separation Prediction Using Pre-Snap Information
 
